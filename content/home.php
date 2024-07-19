@@ -40,7 +40,7 @@ $queryProduk = mysqli_query($koneksi, "SELECT * FROM barang ORDER BY id DESC LIM
             <?php while ($rowProduk = mysqli_fetch_assoc($queryProduk)) : ?>
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
                     <form action="?pg=action-cart" method="post">
-                        <button type="border-none" type="submit" class="product-item" href="?pg=cart">
+                        <button style="border:none;" class="product-item" href="?pg=cart">
                             <img src="admin/upload/<?= $rowProduk['foto'] ?>" class="img-fluid product-thumbnail">
                             <h3 class="product-title"><?= $rowProduk['nama_barang'] ?></h3>
                             <strong class="product-price"><?= "Rp. " . number_format($rowProduk['harga']) ?></strong>

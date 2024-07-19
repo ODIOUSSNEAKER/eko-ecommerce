@@ -1,11 +1,8 @@
 <?php
 if (!isset($_SESSION['id_member'])) {
-    header("location:?pg=member&message=Upps-Harus-Register-dulu");
+    header("location:?pg=member&message=Upss-Harus-Register-Dulu");
 }
 ?>
-
-
-<!-- Start Hero Section -->
 <div class="hero">
     <div class="container">
         <div class="row justify-content-between">
@@ -30,6 +27,9 @@ if (!isset($_SESSION['id_member'])) {
             <form class="col-md-12" method="post">
                 <div class="site-blocks-table">
                     <table class="table">
+                        <?php
+                        $queryProduk = mysqli_query($koneksi, "SELECT * FROM barang ORDER BY id DESC LIMIT 3");
+                        ?>
                         <thead>
                             <tr>
                                 <th class="product-thumbnail">Image</th>
@@ -41,53 +41,31 @@ if (!isset($_SESSION['id_member'])) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="product-thumbnail">
-                                    <img src="images/product-1.png" alt="Image" class="img-fluid">
-                                </td>
-                                <td class="product-name">
-                                    <h2 class="h5 text-black">Product 1</h2>
-                                </td>
-                                <td>$49.00</td>
-                                <td>
-                                    <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-outline-black decrease" type="button">&minus;</button>
+                            <?php while ($rowProduk = mysqli_fetch_assoc($queryProduk)) : ?>
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <img src="admin/upload/<?= $rowProduk['foto'] ?>" class="img-fluid product-thumbnail">
+                                    </td>
+                                    <td class="product-name">
+                                        <h2 class="h5 text-black"><?= $rowProduk['nama_barang'] ?></h2>
+                                    </td>
+                                    <td><?= "Rp. " . number_format($rowProduk['harga']) ?></td>
+                                    <td>
+                                        <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+                                            <div class="input-group-prepend">
+                                                <button class="btn btn-outline-black decrease" type="button">&minus;</button>
+                                            </div>
+                                            <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-black increase" type="button">&plus;</button>
+                                            </div>
                                         </div>
-                                        <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                                        </div>
-                                    </div>
 
-                                </td>
-                                <td>$49.00</td>
-                                <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                            </tr>
-
-                            <tr>
-                                <td class="product-thumbnail">
-                                    <img src="images/product-2.png" alt="Image" class="img-fluid">
-                                </td>
-                                <td class="product-name">
-                                    <h2 class="h5 text-black">Product 2</h2>
-                                </td>
-                                <td>$49.00</td>
-                                <td>
-                                    <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-outline-black decrease" type="button">&minus;</button>
-                                        </div>
-                                        <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>$49.00</td>
-                                <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                            </tr>
+                                    </td>
+                                    <td>$49.00</td>
+                                    <td><a href="#" class="btn btn-black btn-sm">X</a></td>
+                                </tr>
+                            <?php endwhile ?>
                         </tbody>
                     </table>
                 </div>
