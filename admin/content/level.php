@@ -1,9 +1,12 @@
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 <?php
 $query = mysqli_query($koneksi, "SELECT * FROM level ORDER BY id DESC");
+
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
+
     $delete = mysqli_query($koneksi, "DELETE FROM level WHERE id = '$id'");
-    header("location:?pg=level&hapus=berhasil");
+    header("location:?pg=level&hapus-berhasil");
 }
 ?>
 <div align="right" class="mb-3">
@@ -26,10 +29,12 @@ if (isset($_GET['delete'])) {
                 <td><?php echo $row['nama_level'] ?></td>
                 <td><?php echo $row['keterangan'] ?></td>
                 <td>
-                    <a href="?pg=tambah-level&edit=<?php echo $row['id'] ?>" class="btn btn-danger btn-xs">Edit</a>
-                    <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="?pg=level&delete=<?php echo $row['id'] ?>" class="btn btn-xs btn-success">Delete</a>
+                    <a href="?pg=tambah-level&edit=<?php echo $row['id'] ?>" class=" btn btn-success"><box-icon name='pencil'></box-icon></a>
+                    <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href=" ?pg=level&delete=<?php echo $row['id'] ?>" class="btn btn-danger"><box-icon type='solid' name='trash'></box-icon></a>
                 </td>
+
             </tr>
         <?php endwhile ?>
+        </tr>
     </tbody>
 </table>
